@@ -1,3 +1,5 @@
+package java_prog.first.sandbox;
+
 public class MyFirstProgram {
 
 	public static void main(String[] args) {
