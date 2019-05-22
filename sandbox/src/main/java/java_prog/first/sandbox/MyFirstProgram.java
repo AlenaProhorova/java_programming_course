@@ -4,12 +4,14 @@ public class MyFirstProgram {
 
 	public static void main(String[] args) {
 		hello("user");
-		double l = 5;
-		System.out.println("Площадь квадрата со стороной " + l + " = " + area(l));
 
-		double a = 4;
-		double b = 6;
-		System.out.println("Площадь прямоугольника со сторонами " + a + "+" + b + " = " + area(a,b));
+		Square s = new Square(5); //с помощью конструктора атрибуты передаются в объект, не объявляя отдельно
+		System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.area()); //обращение к методу объекта
+
+		Rectangle r = new Rectangle(); //создание объекта класс
+		r.a = 4;  //заполняются атрибуты
+		r.b = 6;
+		System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + area(r));
 	}
 
 
@@ -17,11 +19,8 @@ public class MyFirstProgram {
 		System.out.println("Hello," + somebody + "!");
 	}
 
-	public static double area(double len) {
-		return len*len;
-	}
 
-	public static double area(double a, double b) {
-		return a*b;
+	public static double area(Rectangle r) { // в функцию передаем объект
+		return r.a*r.b;
 	}
 } 
