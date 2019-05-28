@@ -2,14 +2,14 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     WebDriver wd;
-
+    private RecordHelper recordHelper;
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
@@ -22,12 +22,8 @@ public class ApplicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
+        recordHelper = new RecordHelper(wd);
         sessionHelper.login("admin", "secret");
-    }
-
-
-    public void logout() {
-      wd.findElement(By.linkText("Logout")).click();
     }
 
     public void stop() { wd.quit();
@@ -48,5 +44,13 @@ public class ApplicationManager {
 
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public RecordHelper getRecordHelper() {
+        return recordHelper;
+    }
+
+    public SessionHelper getSessionHelper() {
+        return sessionHelper;
     }
 }
