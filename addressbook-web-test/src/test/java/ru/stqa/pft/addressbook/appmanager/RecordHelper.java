@@ -22,4 +22,22 @@ public class RecordHelper extends HelperBase {
     public void submitRecordCreation() {
       click(By.xpath("(//input[@name='submit'])[2]"));
     }
+
+    public void selectRecord() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteSelectedRecord() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
+
+    public void initRecordModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitRecordModification() {
+        click(By.name("update"));
+    }
 }
+
