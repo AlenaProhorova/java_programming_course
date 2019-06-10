@@ -7,7 +7,7 @@ public class RecordCreationTests extends TestBase{
   @Test
   public void testRecordCreation() throws Exception {
     app.getNavigationHelper().gotoRecordPage();
-    app.getRecordHelper().fillRecordForm(new RecordData("Ivan", "Ivanov", "Lenina Street, 5/3", "89634733435", "ivanov@ya.ru"));
+    app.getRecordHelper().fillRecordForm(new RecordData("Ivan", "Ivanov", "Lenina Street, 5/3", "89634733435", "ivanov@ya.ru","test1"),true);
     app.getRecordHelper().submitRecordCreation();
     app.getSessionHelper().logout();
   }
