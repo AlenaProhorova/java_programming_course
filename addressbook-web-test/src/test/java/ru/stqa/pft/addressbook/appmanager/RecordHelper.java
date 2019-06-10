@@ -40,6 +40,9 @@ public class RecordHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
+    public void gotoRecordPage() {
+        click(By.linkText("add new"));
+    }
 
     public void initRecordModification() {
         click(By.xpath("//img[@alt='Edit']"));
@@ -47,6 +50,16 @@ public class RecordHelper extends HelperBase {
 
     public void submitRecordModification() {
         click(By.name("update"));
+    }
+
+    public void createRecord(RecordData record, boolean codition) {
+        gotoRecordPage();
+        fillRecordForm(record, true);
+        submitRecordCreation();
+    }
+
+    public boolean isThereARecord() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
 
