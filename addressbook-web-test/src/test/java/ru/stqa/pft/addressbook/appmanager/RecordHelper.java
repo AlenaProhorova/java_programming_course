@@ -3,9 +3,14 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.RecordData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecordHelper extends HelperBase {
   // public WebDriver wd;
@@ -32,8 +37,8 @@ public class RecordHelper extends HelperBase {
       click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void selectRecord() {
-        click(By.name("selected[]"));
+    public void selectRecord( int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteSelectedRecord() {
@@ -44,8 +49,9 @@ public class RecordHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void initRecordModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initRecordModification(int index) {
+        wd.findElements(By.xpath(".//img[@alt='Edit']")).get(index).click();
+       // click(By.xpath(".//img[@alt='Edit']"));
     }
 
     public void submitRecordModification() {
@@ -60,6 +66,19 @@ public class RecordHelper extends HelperBase {
 
     public boolean isThereARecord() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<RecordData> getRecordList() {
+        List<RecordData> records= new ArrayList<RecordData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+        for (WebElement element: elements){
+            String lastName = element.findElement(By.xpath(".//td[2]")).getText();
+            String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+            int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
+            RecordData record = new RecordData(id,firstName, lastName, "null", "null", "null","null");
+            records.add(record);
+        }
+        return records;
     }
 }
 
