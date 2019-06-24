@@ -4,9 +4,15 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.RecordData;
+import ru.stqa.pft.addressbook.model.Records;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class RecordModificationTests extends TestBase{
 
@@ -26,27 +32,29 @@ public class RecordModificationTests extends TestBase{
 
     @Test  //(enabled = false)
     public void testRecordModification() {
-        List<RecordData> before = app.record().list();
-        int index = before.size() - 1;
+        Records before = app.record().all();
+        RecordData modifiedRecord = before.iterator().next();
+      //  int index = before.size() - 1;
         RecordData record = new RecordData()
-                .withId(before.get(index).getId())
+                .withId(modifiedRecord.getId())
                 .withFirstname("Nikita")
                 .withLastname("Nikitov")
                 .withAddress("Lenina Street, 5/3")
                 .withHometelefon("89634733435")
                 .withHometelefon("ivanov@ya.ru");
-        app.record().modify(index, record);
+        app.record().modify(record);
         app.goTo().homePage();
-        List<RecordData> after = app.record().list();
-        Assert.assertEquals(after.size(), before.size());
+        Records after = app.record().all();
+        assertEquals(after.size(), before.size());
 
-        before.remove(index);
-        before.add(record);
+       // before.remove(modifiedRecord);
+       // before.add(record);
 
-        Comparator<? super RecordData> byId = (r1, r2) ->  Integer.compare(r1.getId(), r2.getId());
+       /* Comparator<? super RecordData> byId = (r1, r2) ->  Integer.compare(r1.getId(), r2.getId());
         before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before,after);
+        after.sort(byId);*/
+       // assertEquals(before,after);
+        assertThat(after, equalTo(before.without(modifiedRecord).withAdded(record)));
     }
 
 

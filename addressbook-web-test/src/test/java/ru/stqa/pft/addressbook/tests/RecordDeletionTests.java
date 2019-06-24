@@ -4,8 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.RecordData;
+import ru.stqa.pft.addressbook.model.Records;
 
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class RecordDeletionTests extends  TestBase{
 
@@ -25,17 +31,19 @@ public class RecordDeletionTests extends  TestBase{
 
     @Test
     public void testRecordDeletion() {
-        List<RecordData> before = app.record().list();
-        int index = before.size()-1;
-        app.record().delete(index);
+        Records before = app.record().all();
+        RecordData deletedRecord = before.iterator().next();
+       // int index = before.size()-1;
+        app.record().delete(deletedRecord);
         app.wd.switchTo().alert().accept();
         app.goTo().homePage();
 
-        List<RecordData> after = app.record().list();
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Records after = app.record().all();
+        assertEquals(after.size(), before.size() - 1);
 
-        before.remove(index);
-        Assert.assertEquals(before,after);
+        //before.remove(deletedRecord);
+        assertThat(after,equalTo(before.without(deletedRecord)));
+        //Assert.assertEquals(before,after);
         }
 
 }
