@@ -58,25 +58,36 @@ public class RecordHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createRecord(RecordData record, boolean codition) {
+    public void create(RecordData record, boolean codition) {
         gotoRecordPage();
         fillRecordForm(record, true);
         submitRecordCreation();
+    }
+
+    public void modify(int index, RecordData record) {
+       selectRecord(index);
+       initRecordModification(index);
+       fillRecordForm(record,false);
+       submitRecordModification();
+    }
+
+    public void delete(int index) {
+        selectRecord(index);
+        deleteSelectedRecord();
     }
 
     public boolean isThereARecord() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<RecordData> getRecordList() {
+    public List<RecordData> list() {
         List<RecordData> records= new ArrayList<RecordData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement element: elements){
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
-            RecordData record = new RecordData(id,firstName, lastName, "null", "null", "null","null");
-            records.add(record);
+            records.add(new RecordData().withId(id).withFirstname(firstName).withLastname(lastName));
         }
         return records;
     }

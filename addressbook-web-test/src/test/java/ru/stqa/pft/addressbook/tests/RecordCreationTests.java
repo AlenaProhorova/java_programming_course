@@ -8,14 +8,20 @@ import java.util.List;
 
 public class RecordCreationTests extends TestBase{
 
-  @Test
+  @Test //(enabled = false)
   public void testRecordCreation() throws Exception {
-  //  app.getNavigationHelper().gotoRecordPage();
-    List<RecordData> before = app.getRecordHelper().getRecordList();
-    RecordData record = new RecordData("Ivan", "Ivanov", "Lenina Street, 5/3", "89634733435", "ivanov@ya.ru","test0");
-    app.getRecordHelper().createRecord(record,true);
-    app.getNavigationHelper().gotoHomePage();
-    List<RecordData> after = app.getRecordHelper().getRecordList();
+    app.goTo().homePage();
+    List<RecordData> before = app.record().list();
+    RecordData record = new RecordData()
+            .withFirstname("Ivan")
+            .withLastname("Ivanov")
+            .withAddress("Lenina Street, 5/3")
+            .withHometelefon("89634733435")
+            .withEmail("ivanov@ya.ru")
+            .withGroup("test0");
+    app.record().create(record,true);
+    app.goTo().homePage();
+    List<RecordData> after = app.record().list();
     Assert.assertEquals(after.size(), before.size()+1);
     before.add(record);
 
@@ -23,7 +29,7 @@ public class RecordCreationTests extends TestBase{
     before.sort(byId);
     after.sort(byId);
     Assert.assertEquals(before,after);
-    app.getSessionHelper().logout();
+   // app.getSessionHelper().logout();
   }
 
 }
