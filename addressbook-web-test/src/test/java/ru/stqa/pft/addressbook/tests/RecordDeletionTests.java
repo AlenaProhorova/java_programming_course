@@ -37,9 +37,9 @@ public class RecordDeletionTests extends  TestBase{
         app.record().delete(deletedRecord);
         app.wd.switchTo().alert().accept();
         app.goTo().homePage();
-
+        assertThat(app.record().count(), equalTo(before.size()-1));
         Records after = app.record().all();
-        assertEquals(after.size(), before.size() - 1);
+        //assertEquals(after.size(), before.size() - 1);
 
         //before.remove(deletedRecord);
         assertThat(after,equalTo(before.without(deletedRecord)));

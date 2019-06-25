@@ -28,8 +28,9 @@ public class RecordCreationTests extends TestBase{
             .withGroup("test0");
     app.record().create(record,true);
     app.goTo().homePage();
+    assertThat(app.record().count(), equalTo(before.size()+1));
     Records after = app.record().all();
-    assertThat(after.size(), equalTo( before.size()+1));
+    //assertThat(after.size(), equalTo( before.size()+1));
     //record.withId(after.stream().mapToInt((r) -> r.getId()).max().getAsInt());
    // before.add(record);
 

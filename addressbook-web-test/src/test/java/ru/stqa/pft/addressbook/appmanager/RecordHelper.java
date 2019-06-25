@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.RecordData;
 import ru.stqa.pft.addressbook.model.Records;
 
@@ -72,6 +73,7 @@ public class RecordHelper extends HelperBase {
         gotoRecordPage();
         fillRecordForm(record, true);
         submitRecordCreation();
+        recordCache = null;
     }
 
     public void modify(RecordData record) {
@@ -79,6 +81,7 @@ public class RecordHelper extends HelperBase {
        initRecordModification(record.getId());
        fillRecordForm(record,false);
        submitRecordModification();
+       recordCache = null;
     }
 
     public void delete(int index) {
@@ -89,6 +92,7 @@ public class RecordHelper extends HelperBase {
     public void delete(RecordData record) {
         selectRecordById(record.getId());
         deleteSelectedRecord();
+        recordCache = null;
     }
 
     public boolean isThereARecord() {
@@ -107,16 +111,25 @@ public class RecordHelper extends HelperBase {
         return records;
     }
 
+    private Records recordCache = null;
+
     public Records all() {
-        Records records= new Records();
+        if (recordCache != null){
+            return new Records(recordCache);
+        }
+        recordCache = new Records();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement element: elements){
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
-            records.add(new RecordData().withId(id).withFirstname(firstName).withLastname(lastName));
+            recordCache.add(new RecordData().withId(id).withFirstname(firstName).withLastname(lastName));
         }
-        return records;
+        return new Records(recordCache);
+    }
+
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
 

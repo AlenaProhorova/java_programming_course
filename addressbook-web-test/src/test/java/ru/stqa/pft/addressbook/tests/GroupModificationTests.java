@@ -33,11 +33,11 @@ public class GroupModificationTests extends TestBase {
         //int index = before.size() - 1;
         GroupData group = new GroupData()
                 .withId(modifyGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
-       // int before = app.group().getGroupCount();
+       // int before = app.group().count();
         app.group().modify(group);
+        assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.group().all();
-        //int after = app.group().getGroupCount();
-        assertEquals(after.size(), before.size());
+        //int after = app.group().count();
 
       //  before.remove(modifyGroup);
        // before.add(group);

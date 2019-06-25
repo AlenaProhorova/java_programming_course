@@ -44,8 +44,9 @@ public class RecordModificationTests extends TestBase{
                 .withHometelefon("ivanov@ya.ru");
         app.record().modify(record);
         app.goTo().homePage();
+        assertThat(app.record().count(), equalTo(before.size()));
         Records after = app.record().all();
-        assertEquals(after.size(), before.size());
+       // assertEquals(after.size(), before.size());
 
        // before.remove(modifiedRecord);
        // before.add(record);
