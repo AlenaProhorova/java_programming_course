@@ -1,13 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.RecordData;
 import ru.stqa.pft.addressbook.model.Records;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,7 +17,7 @@ public class RecordCreationTests extends TestBase{
             .withFirstname("Ivan")
             .withLastname("Ivanov")
             .withAddress("Lenina Street, 5/3")
-            .withHometelefon("89634733435")
+            .withHomePhone("89634733435")
             .withEmail("ivanov@ya.ru")
             .withGroup("test0");
     app.record().create(record,true);

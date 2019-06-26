@@ -1,13 +1,9 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.RecordData;
 import ru.stqa.pft.addressbook.model.Records;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,7 +19,7 @@ public class RecordDeletionTests extends  TestBase{
                     .withFirstname("Ivan")
                     .withLastname("Ivanov")
                     .withAddress("Lenina Street, 5/3")
-                    .withHometelefon("89634733435")
+                    .withHomePhone("89634733435")
                     .withEmail("ivanov@ya.ru")
                     .withGroup("test1"),true);
         }

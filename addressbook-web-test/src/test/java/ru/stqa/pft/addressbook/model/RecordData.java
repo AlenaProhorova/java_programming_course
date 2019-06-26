@@ -7,9 +7,76 @@ public class RecordData {
     private String firstname;
     private String lastname;
     private String address;
-    private String hometelefon;
+    private String address2;
+    private String homephone;
+    private String workphone;
+    private String mobilephone;
     private String email;
+    private String email2;
+    private String email3;
     private String group;
+    private String allphones;
+    private String allemails;
+
+    public String getAlladdress() {
+        return alladdress;
+    }
+
+    public RecordData withAlladdress(String alladdress) {
+        this.alladdress = alladdress;
+        return this;
+    }
+
+    private String alladdress;
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public RecordData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
+    public String getAllemails() {
+        return allemails;
+    }
+
+    public RecordData withAllemails(String allemails) {
+        this.allemails = allemails;
+        return this;
+    }
+
+
+
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public RecordData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public RecordData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public String getAllphones() {
+        return allphones;
+    }
+
+    public RecordData withAllphones(String allphones) {
+        this.allphones = allphones;
+        return this;
+    }
 
     public RecordData withId(int id) {
         this.id = id;
@@ -31,8 +98,18 @@ public class RecordData {
         return this;
     }
 
-    public RecordData withHometelefon(String hometelefon) {
-        this.hometelefon = hometelefon;
+    public RecordData withHomePhone(String homephone) {
+        this.homephone = homephone;
+        return this;
+    }
+
+    public RecordData withWorkPhone(String workphone) {
+        this.workphone = workphone;
+        return this;
+    }
+
+    public RecordData withMobilePhone(String mobilephone) {
+        this.mobilephone = mobilephone;
         return this;
     }
 
@@ -63,9 +140,18 @@ public class RecordData {
         return address;
     }
 
-    public String getHometelefon() {
-        return hometelefon;
+    public String getHomePhone() {
+        return homephone;
     }
+
+    public String getWorkPhone() {
+        return workphone;
+    }
+
+    public String getMobilePhone() {
+        return mobilephone;
+    }
+
 
     public String getEmail() {
         return email;
