@@ -24,6 +24,7 @@ public class RecordHelper extends HelperBase {
         type(By.name("address"),recordData.getAddress());
         type(By.name("home"),recordData.getHomePhone());
         type(By.name("email"),recordData.getEmail());
+        attach(By.name("photo"),recordData.getPhoto());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(recordData.getGroup());

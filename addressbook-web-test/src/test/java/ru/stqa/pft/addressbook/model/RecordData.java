@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class RecordData {
@@ -17,6 +18,17 @@ public class RecordData {
     private String group;
     private String allphones;
     private String allemails;
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public RecordData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    private File photo;
 
     public String getAlladdress() {
         return alladdress;
