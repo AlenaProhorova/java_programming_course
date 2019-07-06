@@ -1,4 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -9,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import static org.testng.Assert.assertEquals;
 public class RecordCreationTests extends TestBase{
 
   @DataProvider
-  public Iterator<Object[]> validRecords() throws IOException {
+  public Iterator<Object[]> validRecordsFromXml() throws IOException {
     File photo = new File("src/test/resources/avatar.png");
    // List<Object[]> list = new ArrayList<Object[]>();
     BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.xml")));
@@ -29,14 +30,6 @@ public class RecordCreationTests extends TestBase{
     String xml = "";
     while (line != null){
       xml += line;
-     /* String[] split = line.split(";");
-      list.add(new Object[] {new RecordData().withFirstname(split[0])
-              .withLastname(split[1])
-              .withHomePhone(split[2])
-              .withAddress(split[3])
-              .withEmail(split[4])
-              .withGroup(split[5])
-              .withPhoto(photo)});*/
       line = reader.readLine();
     }
 
@@ -44,11 +37,23 @@ public class RecordCreationTests extends TestBase{
     xstream.processAnnotations(RecordData.class);
     List<RecordData> records = (List<RecordData>) xstream.fromXML(xml);
     return records.stream().map((r) -> new Object[] {r}).collect(Collectors.toList()).iterator();
-
-   // return list.iterator();
   }
 
-  @Test  (dataProvider = "validRecords") //(enabled = false)
+  @DataProvider
+  public Iterator<Object[]> validRecordsFromJson() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.json")));
+    String line = reader.readLine();
+    String json = "";
+    while (line != null){
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<RecordData> records = gson.fromJson(json, new TypeToken<List<RecordData>>(){}.getType());
+    return records.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+  }
+
+  @Test  (dataProvider = "validRecordsFromJson") //(enabled = false)
   public void testRecordCreation(RecordData record) throws Exception {
    // File photo = new File("src/test/resources/avatar.png");
     app.goTo().homePage();

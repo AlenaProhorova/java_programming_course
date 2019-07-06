@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.RecordData;
@@ -46,6 +48,8 @@ public class RecordDataGenerator {
             saveAsCsv(records,new File(file));
         }else if (format.equals("xml")){
             saveAsXml(records,new File(file));
+        } else if (format.equals("json")) {
+            saveAsJson(records, new File(file));
         } else{
             System.out.println("Unrecognized format"+ format);
         }
@@ -64,6 +68,15 @@ public class RecordDataGenerator {
         writer.close();
     }
 
+    private void saveAsJson(List<RecordData> records, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(records);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
+
+    }
+
     private void saveAsXml(List<RecordData> records, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(RecordData.class);
@@ -75,6 +88,7 @@ public class RecordDataGenerator {
     }
 
     private static List<RecordData> generateRecords(int count) {
+        File photo = new File("src/test/resources/avatar.png");
         List<RecordData> records = new ArrayList<RecordData>();
         for (int i = 0; i<count; i++){
             records.add(new RecordData().withFirstname(String.format("FirstName %s", i))
