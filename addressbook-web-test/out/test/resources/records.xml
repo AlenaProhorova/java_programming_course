@@ -1,0 +1,26 @@
+<list>
+  <record>
+    <firstname>FirstName 0</firstname>
+    <lastname>LastName 0</lastname>
+    <address>Street 0, 0/0</address>
+    <homephone>00000000</homephone>
+    <email>test0@tst.com</email>
+    <group>test0</group>
+  </record>
+  <record>
+    <firstname>FirstName 1</firstname>
+    <lastname>LastName 1</lastname>
+    <address>Street 1, 1/1</address>
+    <homephone>11111111</homephone>
+    <email>test1@tst.com</email>
+    <group>test0</group>
+  </record>
+  <record>
+    <firstname>FirstName 2</firstname>
+    <lastname>LastName 2</lastname>
+    <address>Street 2, 2/2</address>
+    <homephone>22222222</homephone>
+    <email>test2@tst.com</email>
+    <group>test0</group>
+  </record>
+</list>

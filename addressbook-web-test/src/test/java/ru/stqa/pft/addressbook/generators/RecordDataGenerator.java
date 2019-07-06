@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.RecordData;
 
@@ -21,6 +22,9 @@ public class RecordDataGenerator {
     @Parameter (names = "-f", description = "Target file")
     public String file;
 
+    @Parameter (names = "-d", description = "Data format")
+    public String format;
+
     public static  void main (String[] args) throws IOException {
 
         RecordDataGenerator generator = new RecordDataGenerator();
@@ -37,18 +41,36 @@ public class RecordDataGenerator {
 
     private void run() throws IOException {
         List<RecordData> records = generateRecords(count);
-        save(records,new File(file));
+
+        if (format.equals("csv")){
+            saveAsCsv(records,new File(file));
+        }else if (format.equals("xml")){
+            saveAsXml(records,new File(file));
+        } else{
+            System.out.println("Unrecognized format"+ format);
+        }
     }
 
-    private static void save(List<RecordData> records, File file) throws IOException {
+    private static void saveAsCsv(List<RecordData> records, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (RecordData record : records){
-            writer.write(String.format("%s;%s;%s;%s;%s\n", record.getFirstname(),
+            writer.write(String.format("%s;%s;%s;%s;%s;%s\n", record.getFirstname(),
                     record.getLastname(),
-                    record.getMobilePhone(),
+                    record.getHomePhone(),
                     record.getAddress(),
-                    record.getEmail()));
+                    record.getEmail(),
+                    record.getGroup()));
         }
+        writer.close();
+    }
+
+    private void saveAsXml(List<RecordData> records, File file) throws IOException {
+        XStream xstream = new XStream();
+        xstream.processAnnotations(RecordData.class);
+        xstream.alias("record", RecordData.class);
+        String xml = xstream.toXML(records);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
         writer.close();
     }
 
@@ -57,9 +79,10 @@ public class RecordDataGenerator {
         for (int i = 0; i<count; i++){
             records.add(new RecordData().withFirstname(String.format("FirstName %s", i))
                     .withLastname(String.format("LastName %s",i))
-                    .withMobilePhone(String.format("%s%s%s%s%s%s%s%s",i,i,i,i,i,i,i,i))
+                    .withHomePhone(String.format("%s%s%s%s%s%s%s%s",i,i,i,i,i,i,i,i))
                     .withAddress(String.format("Street %s, %s/%s",i,i,i))
-                    .withEmail(String.format("test%s@tst.com",i)));
+                    .withEmail(String.format("test%s@tst.com",i))
+                    .withGroup(String.format("test0")));
         }
         return records;
     }
