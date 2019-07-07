@@ -4,26 +4,39 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("record")
+@Entity
+@Table(name = "addressbook")
 
 public class RecordData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private  int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String firstname;
     @Expose
+    @Column(name = "lastname")
     private String lastname;
     @Expose
+  //  @Column(name = "address")
     private String address;
     private String address2;
     @Expose
+    @Column(name = "home")
     private String homephone;
     private String workphone;
     private String mobilephone;
     @Expose
+    @Column(name = "email")
     private String email;
     private String email2;
     private String email3;

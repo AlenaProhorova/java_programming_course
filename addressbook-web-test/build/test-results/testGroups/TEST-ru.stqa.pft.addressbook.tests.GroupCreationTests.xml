@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.GroupCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-07-07T15:44:22" hostname="AP" time="103.988">
+  <properties/>
+  <testcase name="testGroupCreation[0](GroupData{id='2147483647', name='test 0'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="49.412"/>
+  <testcase name="testGroupCreation[1](GroupData{id='2147483647', name='test 1'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="44.506"/>
+  <testcase name="testGroupCreation[2](GroupData{id='2147483647', name='test 2'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="10.058"/>
+  <system-out><![CDATA[19:44:22.034 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation with parameters[GroupData{id='2147483647', name='test 0'}]
+19:45:11.602 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation
+19:45:11.604 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation with parameters[GroupData{id='2147483647', name='test 1'}]
+19:45:56.112 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation
+19:45:56.114 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation with parameters[GroupData{id='2147483647', name='test 2'}]
+19:46:06.175 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
