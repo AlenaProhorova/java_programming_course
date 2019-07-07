@@ -3,11 +3,9 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
@@ -20,41 +18,74 @@ public class RecordData {
     @Id
     @Column(name = "id")
     private  int id = Integer.MAX_VALUE;
+
     @Expose
     @Column(name = "firstname")
     private String firstname;
+
     @Expose
     @Column(name = "lastname")
     private String lastname;
+
     @Expose
-  //  @Column(name = "address")
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
+    @Column(name = "address2")
+    @Type(type = "text")
     private String address2;
+
     @Expose
     @Column(name = "home")
+    @Type(type = "text")
     private String homephone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workphone;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilephone;
+
     @Expose
     @Column(name = "email")
+    @Type(type = "text")
     private String email;
+
+    @Transient
     private String email2;
+
+    @Transient
     private String email3;
+
     @Expose
+    @Transient
     private String group;
+
+    @Expose
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
+    @Transient
     private String allphones;
+
+    @Transient
     private String allemails;
 
+    @Transient
+    private String alladdress;
+
     public File getPhoto() {
-        return photo;
+        return new File (photo);
     }
 
     public RecordData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
-    @Expose
-    private File photo;
 
     public String getAlladdress() {
         return alladdress;
@@ -65,7 +96,6 @@ public class RecordData {
         return this;
     }
 
-    private String alladdress;
 
     public String getAddress2() {
         return address2;
