@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.RecordCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-07-07T15:40:25" hostname="AP" time="112.858">
+  <properties/>
+  <testcase name="testRecordCreation[0](RecordData{id=2147483647, firstname='FirstName 0', lastname='LastName 0'})" classname="ru.stqa.pft.addressbook.tests.RecordCreationTests" time="64.734"/>
+  <testcase name="testRecordCreation[1](RecordData{id=2147483647, firstname='FirstName 1', lastname='LastName 1'})" classname="ru.stqa.pft.addressbook.tests.RecordCreationTests" time="23.968"/>
+  <testcase name="testRecordCreation[2](RecordData{id=2147483647, firstname='FirstName 2', lastname='LastName 2'})" classname="ru.stqa.pft.addressbook.tests.RecordCreationTests" time="24.146"/>
+  <system-out><![CDATA[19:40:25.658 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testRecordCreation with parameters[RecordData{id=2147483647, firstname='FirstName 0', lastname='LastName 0'}]
+19:41:30.411 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testRecordCreation
+19:41:30.413 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testRecordCreation with parameters[RecordData{id=2147483647, firstname='FirstName 1', lastname='LastName 1'}]
+19:41:54.383 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testRecordCreation
+19:41:54.385 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testRecordCreation with parameters[RecordData{id=2147483647, firstname='FirstName 2', lastname='LastName 2'}]
+19:42:18.533 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testRecordCreation
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
