@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Suite1" verbose="1" >
+    <test name="Records">
+        <classes>
+            <class name="ru.stqa.pft.addressbook.tests.RecordCreationTests" />
+            <class name="ru.stqa.pft.addressbook.tests.RecordModificationTests" />
+            <class name="ru.stqa.pft.addressbook.tests.RecordDeletionTests" />
+            <class name="ru.stqa.pft.addressbook.tests.RecordAddressTests" />
+            <class name="ru.stqa.pft.addressbook.tests.RecordEmailTests" />
+            <class name="ru.stqa.pft.addressbook.tests.RecordPhoneTests" />
+        </classes>
+    </test>
+</suite>

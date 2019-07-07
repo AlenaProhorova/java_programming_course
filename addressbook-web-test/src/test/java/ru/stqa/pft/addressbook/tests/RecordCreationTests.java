@@ -25,32 +25,35 @@ public class RecordCreationTests extends TestBase{
   public Iterator<Object[]> validRecordsFromXml() throws IOException {
     File photo = new File("src/test/resources/avatar.png");
    // List<Object[]> list = new ArrayList<Object[]>();
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.xml")));
-    String line = reader.readLine();
-    String xml = "";
-    while (line != null){
-      xml += line;
-      line = reader.readLine();
-    }
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.xml")))) {
+      String line = reader.readLine();
+      String xml = "";
+      while (line != null) {
+        xml += line;
+        line = reader.readLine();
+      }
 
-    XStream xstream = new XStream();
-    xstream.processAnnotations(RecordData.class);
-    List<RecordData> records = (List<RecordData>) xstream.fromXML(xml);
-    return records.stream().map((r) -> new Object[] {r}).collect(Collectors.toList()).iterator();
+      XStream xstream = new XStream();
+      xstream.processAnnotations(RecordData.class);
+      List<RecordData> records = (List<RecordData>) xstream.fromXML(xml);
+      return records.stream().map((r) -> new Object[]{r}).collect(Collectors.toList()).iterator();
+    }
   }
 
   @DataProvider
   public Iterator<Object[]> validRecordsFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.json")));
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/records.json")))){
     String line = reader.readLine();
     String json = "";
-    while (line != null){
+    while (line != null) {
       json += line;
       line = reader.readLine();
     }
     Gson gson = new Gson();
-    List<RecordData> records = gson.fromJson(json, new TypeToken<List<RecordData>>(){}.getType());
-    return records.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    List<RecordData> records = gson.fromJson(json, new TypeToken<List<RecordData>>() {
+    }.getType());
+    return records.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+  }
   }
 
   @Test  (dataProvider = "validRecordsFromJson") //(enabled = false)

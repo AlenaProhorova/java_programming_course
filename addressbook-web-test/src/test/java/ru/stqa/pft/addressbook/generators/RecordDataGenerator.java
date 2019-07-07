@@ -56,25 +56,24 @@ public class RecordDataGenerator {
     }
 
     private static void saveAsCsv(List<RecordData> records, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-        for (RecordData record : records){
-            writer.write(String.format("%s;%s;%s;%s;%s;%s\n", record.getFirstname(),
-                    record.getLastname(),
-                    record.getHomePhone(),
-                    record.getAddress(),
-                    record.getEmail(),
-                    record.getGroup()));
-        }
-        writer.close();
+       try(Writer writer = new FileWriter(file)) {
+           for (RecordData record : records) {
+               writer.write(String.format("%s;%s;%s;%s;%s;%s\n", record.getFirstname(),
+                       record.getLastname(),
+                       record.getHomePhone(),
+                       record.getAddress(),
+                       record.getEmail(),
+                       record.getGroup()));
+           }
+       }
     }
 
     private void saveAsJson(List<RecordData> records, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(records);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
-
+        try(Writer writer = new FileWriter(file)){
+            writer.write(json);
+        }
     }
 
     private void saveAsXml(List<RecordData> records, File file) throws IOException {
@@ -82,9 +81,9 @@ public class RecordDataGenerator {
         xstream.processAnnotations(RecordData.class);
         xstream.alias("record", RecordData.class);
         String xml = xstream.toXML(records);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try(Writer writer = new FileWriter(file)){
+            writer.write(xml);
+        }
     }
 
     private static List<RecordData> generateRecords(int count) {
