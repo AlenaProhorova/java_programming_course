@@ -14,7 +14,7 @@ public class RecordDeletionTests extends  TestBase{
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-        if (app.record().list().size() ==0){
+        if (app.db().records().size() ==0){
             app.record().create(new RecordData()
                     .withFirstname("Ivan")
                     .withLastname("Ivanov")
@@ -27,19 +27,15 @@ public class RecordDeletionTests extends  TestBase{
 
     @Test
     public void testRecordDeletion() {
-        Records before = app.record().all();
+        Records before = app.db().records();
         RecordData deletedRecord = before.iterator().next();
-       // int index = before.size()-1;
         app.record().delete(deletedRecord);
         app.wd.switchTo().alert().accept();
         app.goTo().homePage();
         assertThat(app.record().count(), equalTo(before.size()-1));
-        Records after = app.record().all();
-        //assertEquals(after.size(), before.size() - 1);
-
-        //before.remove(deletedRecord);
+        Records after = app.db().records();
         assertThat(after,equalTo(before.without(deletedRecord)));
-        //Assert.assertEquals(before,after);
+
         }
 
 }

@@ -60,19 +60,11 @@ public class RecordCreationTests extends TestBase{
   public void testRecordCreation(RecordData record) throws Exception {
    // File photo = new File("src/test/resources/avatar.png");
     app.goTo().homePage();
-    Records before = app.record().all();
-  /*  RecordData record = new RecordData()
-            .withFirstname("Ivan")
-            .withLastname("Ivanov")
-            .withAddress("Lenina Street, 5/3")
-            .withHomePhone("89634733435")
-            .withEmail("ivanov@ya.ru")
-            .withGroup("test0")
-            .withPhoto(photo);*/
+    Records before = app.db().records();
     app.record().create(record,true);
     app.goTo().homePage();
     assertThat(app.record().count(), equalTo(before.size()+1));
-    Records after = app.record().all();
+    Records after = app.db().records();
     assertThat(after,equalTo(
             before.withAdded(record.withId(after.stream().mapToInt((r) -> r.getId()).max().getAsInt()))));
   }
