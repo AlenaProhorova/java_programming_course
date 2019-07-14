@@ -37,6 +37,7 @@ public class HbConnectionTest {
         List<RecordData> result = session.createQuery( "from RecordData where deprecated = '0000-00-00'" ).list();
         for ( RecordData record : result ) {
             System.out.println(record);
+            System.out.println(record.getGroups());
         }
         session.getTransaction().commit();
         session.close();

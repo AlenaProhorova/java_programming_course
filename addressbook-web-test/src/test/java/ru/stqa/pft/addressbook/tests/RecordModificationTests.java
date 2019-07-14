@@ -18,14 +18,14 @@ public class RecordModificationTests extends TestBase{
         app.goTo().homePage();
         if (app.db().records().size() ==0){
             File photo = new File("src/test/resources/avatar.png");
-            app.record().create(new RecordData()
+        /*    app.record().create(new RecordData()
                     .withFirstname("Ivan")
                     .withLastname("Ivanov")
                     .withAddress("Lenina Street, 5/3")
                     .withHomePhone("89634733435")
                     .withEmail("ivanov@ya.ru")
                     .withPhoto(photo)
-                    .withGroup("test1"),true);
+                   .withGroup("test1"),true);*/
         }
     }
 
@@ -49,6 +49,7 @@ public class RecordModificationTests extends TestBase{
         Records after = app.db().records();
         //Records after = app.db().records();
         assertThat(after, equalTo(before.without(modifiedRecord).withAdded(record)));
+        VerifyRecordListInUI();
     }
 
 

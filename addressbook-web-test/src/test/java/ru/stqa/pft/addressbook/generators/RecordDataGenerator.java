@@ -63,7 +63,7 @@ public class RecordDataGenerator {
                        record.getHomePhone(),
                        record.getAddress(),
                        record.getEmail(),
-                       record.getGroup(),
+                      // record.getGroup(),
                        record.getPhoto()));
            }
        }
@@ -96,7 +96,7 @@ public class RecordDataGenerator {
                     .withHomePhone(String.format("%s%s%s%s%s%s%s%s",i,i,i,i,i,i,i,i))
                     .withAddress(String.format("Street %s, %s/%s",i,i,i))
                     .withEmail(String.format("test%s@tst.com",i))
-                    .withGroup(String.format("test0"))
+                 //   .withGroup(String.format("test0"))
                     .withPhoto(photo));
         }
         return records;

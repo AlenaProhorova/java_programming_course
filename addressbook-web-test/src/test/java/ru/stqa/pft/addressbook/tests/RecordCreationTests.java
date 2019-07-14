@@ -67,6 +67,8 @@ public class RecordCreationTests extends TestBase{
     Records after = app.db().records();
     assertThat(after,equalTo(
             before.withAdded(record.withId(after.stream().mapToInt((r) -> r.getId()).max().getAsInt()))));
+
+    VerifyRecordListInUI();
   }
 
   @Test (enabled = false)
