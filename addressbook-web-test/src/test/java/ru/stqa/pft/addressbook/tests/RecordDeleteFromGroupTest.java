@@ -1,7 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.RecordData;
 import ru.stqa.pft.addressbook.model.Records;
@@ -10,12 +13,11 @@ import java.io.File;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
-public class RecordModificationTests extends TestBase{
+public class RecordDeleteFromGroupTest extends TestBase{
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         app.goTo().homePage();
         File photo = new File("src/test/resources/avatar.png");
         Groups groups = app.db().groups();
@@ -32,28 +34,29 @@ public class RecordModificationTests extends TestBase{
         }
     }
 
-    @Test  //(enabled = false)
-    public void testRecordModification() {
+    @Test
+    public void testRecordDeleteFromGroup() {
         app.goTo().homePage();
-        File photo = new File("src/test/resources/avatar.png");
         Records before = app.db().records();
-        RecordData modifiedRecord = before.iterator().next();
-        RecordData record = new RecordData()
-                .withId(modifiedRecord.getId())
-                .withFirstname("Nikita")
-                .withLastname("Nikitov")
-                .withAddress("Lenina Street, 5/3")
-                .withHomePhone("89634733435")
-                .withEmail("ivanov@ya.ru")
-                .withPhoto(photo);
-        app.record().modify(record);
-        app.goTo().homePage();
-        assertThat(app.record().count(), equalTo(before.size()));
-        Records after = app.db().records();
-        //Records after = app.db().records();
-        assertThat(after, equalTo(before.without(modifiedRecord).withAdded(record)));
-        VerifyRecordListInUI();
-    }
+        Groups groups = app.db().groups(); //группы из БД
+        RecordData deleteRecord = before.iterator().next();
+        Groups groupFromRecord = deleteRecord.getGroups();
 
+      /*  if (deleteRecord.getGroups().size() == 0){
+            app.record().selectRecordById(deleteRecord.getId());
+            app.record().addRecordGroup(groups.iterator().next());
+            app.goTo().homePage();
+        }*/
+
+        //groups.removeAll(groupFromRecord);
+
+        for (GroupData groupDelete : groupFromRecord) {
+            app.record().deleteRecordGroup(deleteRecord,groupDelete);
+            app.goTo().homePage();
+        }
+
+        assertThat(app.db().records(), equalTo(before));
+
+    }
 
 }

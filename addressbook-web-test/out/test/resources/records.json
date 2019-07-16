@@ -5,7 +5,6 @@
     "address": "Street 0, 0/0",
     "homephone": "00000000",
     "email": "test0@tst.com",
-    "group": "test0",
     "photo": "src\\test\\resources\\avatar.png"
   },
   {
@@ -14,7 +13,6 @@
     "address": "Street 1, 1/1",
     "homephone": "11111111",
     "email": "test1@tst.com",
-    "group": "test0",
     "photo": "src\\test\\resources\\avatar.png"
   },
   {
@@ -23,7 +21,6 @@
     "address": "Street 2, 2/2",
     "homephone": "22222222",
     "email": "test2@tst.com",
-    "group": "test0",
     "photo": "src\\test\\resources\\avatar.png"
   }
 ]

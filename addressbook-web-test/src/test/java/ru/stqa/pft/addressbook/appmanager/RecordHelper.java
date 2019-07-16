@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.RecordData;
 import ru.stqa.pft.addressbook.model.Records;
 
@@ -48,6 +49,7 @@ public class RecordHelper extends HelperBase {
     public void selectRecordById( int id) {
         wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
+
 
     public void deleteSelectedRecord() {
         click(By.xpath("//input[@value='Delete']"));
@@ -123,15 +125,6 @@ public class RecordHelper extends HelperBase {
             String lastName = element.findElement(By.xpath(".//td[2]")).getText();
             String firstName = element.findElement(By.xpath(".//td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("value"));
-           // String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
-           /* String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
-            recordCache.add(new RecordData()
-                    .withId(id)
-                    .withFirstname(firstName)
-                    .withLastname(lastName)
-                    .withHomePhone(phones[0])
-                    .withMobilePhone(phones[1])
-                    .withWorkPhone(phones[2]));*/
            String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
             String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
             String allAddress = element.findElement(By.xpath(".//td[4]")).getText();
@@ -187,6 +180,19 @@ public class RecordHelper extends HelperBase {
 
         //wd.findElement(By.cssSelector(String.format("//input[value='%s']/../../td[8]/a",id)));
         //wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
+    }
+
+    public void addRecordGroup( GroupData group) {
+      /* new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(recordData
+                .getGroups().iterator().next().getName());*/
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        wd.findElement(By.name("add")).click();
+    }
+
+    public void deleteRecordGroup(RecordData record,GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        selectRecordById(record.getId());
+        wd.findElement(By.name("remove")).click();
     }
 }
 
