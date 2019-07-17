@@ -56,7 +56,6 @@ public class RecordAddInGroupTest extends TestBase{
         //groups.stream().map( (g) -> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet());
         assertThat(app.db().records(), equalTo(before));
        // assertThat(after., equalTo(app.db().groups()));
-
     }
 
 }
