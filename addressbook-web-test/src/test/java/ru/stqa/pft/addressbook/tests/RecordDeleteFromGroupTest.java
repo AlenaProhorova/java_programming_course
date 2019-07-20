@@ -32,6 +32,10 @@ public class RecordDeleteFromGroupTest extends TestBase{
         if (app.db().records().size() ==0){
             app.record().create(newRecord, true);
         }
+
+        if (app.db().groups().size() == 0){
+            app.group().create(new GroupData().withName("test0"));
+        }
     }
 
     @Test
@@ -40,23 +44,34 @@ public class RecordDeleteFromGroupTest extends TestBase{
         Records before = app.db().records();
         Groups groups = app.db().groups(); //группы из БД
         RecordData deleteRecord = before.iterator().next();
+        int selectedId =deleteRecord.getId();
         Groups groupFromRecord = deleteRecord.getGroups();
 
-      /*  if (deleteRecord.getGroups().size() == 0){
-            app.record().selectRecordById(deleteRecord.getId());
+        if (deleteRecord.getGroups().size() == 0){
+            app.record().selectRecordById(selectedId);
             app.record().addRecordGroup(groups.iterator().next());
             app.goTo().homePage();
-        }*/
 
-        //groups.removeAll(groupFromRecord);
+            Records test = app.db().records();
+            deleteRecord = test.iterator().next().withId(selectedId);
+            groupFromRecord =  deleteRecord.getGroups();
+        }
+
+        groups.removeAll(groupFromRecord);
 
         for (GroupData groupDelete : groupFromRecord) {
             app.record().deleteRecordGroup(deleteRecord,groupDelete);
             app.goTo().homePage();
         }
 
-        assertThat(app.db().records(), equalTo(before));
+        Records after = app.db().records();
+        RecordData recordAfterDeleteGroup = after.iterator().next().withId(deleteRecord.getId());
+
+        assertThat(after, equalTo(before));
+        assertThat(recordAfterDeleteGroup.getGroups().size(), equalTo(0));
 
     }
+
+
 
 }

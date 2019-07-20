@@ -3,9 +3,11 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,7 +16,7 @@ import java.util.Set;
 @XStreamAlias("record")
 @Entity
 @Table(name = "addressbook")
-
+@DynamicUpdate
 public class RecordData {
     @XStreamOmitField
     @Id

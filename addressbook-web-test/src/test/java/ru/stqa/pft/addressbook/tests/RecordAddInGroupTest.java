@@ -34,6 +34,11 @@ public class RecordAddInGroupTest extends TestBase{
         if (app.db().records().size() ==0){
             app.record().create(newRecord, true);
         }
+
+        if (app.db().groups().size() == 0){
+            app.group().create(new GroupData().withName("test0"));
+        }
+
     }
 
     @Test
@@ -42,20 +47,30 @@ public class RecordAddInGroupTest extends TestBase{
         Records before = app.db().records();
         Groups groups = app.db().groups(); //группы из БД
         RecordData addedRecord = before.iterator().next();
-        Groups groupFromRecord = addedRecord.getGroups(); //группы из записи
-        groups.removeAll(groupFromRecord);
+        int selectedId =addedRecord.getId();
+        Groups groupFromRecord = addedRecord.getGroups();
 
+        if ((groupFromRecord).equals(groups)){
+            GroupData deletedGroup = groups.iterator().next();
+
+            app.record().deleteRecordGroup(addedRecord,deletedGroup);
+
+            Records test = app.db().records();
+            addedRecord = test.iterator().next().withId(selectedId);
+            groupFromRecord =  addedRecord.getGroups();
+        }
+
+        groups.removeAll(groupFromRecord);
         for (GroupData groupBD : groups) {
             app.record().selectRecordById(addedRecord.getId());
             app.record().addRecordGroup(groupBD);
             app.goTo().homePage();
         }
 
-        //Records after = app.db().records().;
-
-        //groups.stream().map( (g) -> new GroupData().withId(g.getId()).withName(g.getName())).collect(Collectors.toSet());
-        assertThat(app.db().records(), equalTo(before));
-       // assertThat(after., equalTo(app.db().groups()));
+        Records after = app.db().records();
+        RecordData recordAfterAddedGroup = after.iterator().next().withId(addedRecord.getId());
+        assertThat(after, equalTo(before));
+        assertThat(recordAfterAddedGroup.getGroups(), equalTo(app.db().groups()));
     }
 
 }

@@ -59,6 +59,10 @@ public class RecordHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
+    public void homePage() {
+        click(By.linkText("home"));
+    }
+
     public void initRecordModification(int id) {
       //  wd.findElement(By.cssSelector("input[@id='"+ id + "']")) .click();
         wd.findElement(By.cssSelector("a[href='edit.php?id=" + id +"']")).click();
@@ -182,7 +186,8 @@ public class RecordHelper extends HelperBase {
         //wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']",id))).click();
     }
 
-    public void addRecordGroup( GroupData group) {
+    public void
+    addRecordGroup( GroupData group) {
       /* new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(recordData
                 .getGroups().iterator().next().getName());*/
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
@@ -193,6 +198,9 @@ public class RecordHelper extends HelperBase {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
         selectRecordById(record.getId());
         wd.findElement(By.name("remove")).click();
+        homePage();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+
     }
 }
 

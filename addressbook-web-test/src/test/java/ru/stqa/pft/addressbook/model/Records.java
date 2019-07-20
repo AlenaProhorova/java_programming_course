@@ -1,12 +1,14 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@DynamicUpdate
 public class Records extends ForwardingSet<RecordData> {
 
     private Set<RecordData> delegate;
