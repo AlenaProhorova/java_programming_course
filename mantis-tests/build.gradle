@@ -10,6 +10,9 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.14.0'
     compile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
     compile group: 'commons-net', name: 'commons-net', version: '3.6'
+    compile group: 'org.subethamail', name: 'subethasmtp', version: '3.1.7'
+    compile group: 'ru.lanwen.verbalregex', name: 'java-verbal-expressions', version: '1.4'
+    compile group: 'ch.qos.logback', name:'logback-classic', version:'1.1.5'
 }
 
 test{
