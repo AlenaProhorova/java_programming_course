@@ -17,7 +17,7 @@ import static ru.stqa.pft.mantis.tests.TestBase.app;
 
 public class RegistrationTest extends TestBase{
 
-    @BeforeMethod //comment
+   // @BeforeMethod //comment
     public void startMailServer(){
         app.mail().start();
     }
@@ -28,10 +28,10 @@ public class RegistrationTest extends TestBase{
         String email = String.format("user%s@localhost.localdomain", now);
         String user = String.format("user%s", now);
         String password = "password";
-        //app.james().creatUser(user, password);
+        app.james().creatUser(user, password);
         app.registration().start(user, email);
-        List<MailMessage> mailMessages =  app.mail().waitForMail(2, 10000); //comment
-      // List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+      //  List<MailMessage> mailMessages =  app.mail().waitForMail(2, 10000); //comment
+       List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
                 String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
         assertTrue(app.newSession().login(user, password));
@@ -44,7 +44,7 @@ public class RegistrationTest extends TestBase{
     }
 
 
-   @AfterMethod(alwaysRun = true) //comment
+  // @AfterMethod(alwaysRun = true) //comment
     public void stopMailServer(){
         app.mail().stop();
     }
