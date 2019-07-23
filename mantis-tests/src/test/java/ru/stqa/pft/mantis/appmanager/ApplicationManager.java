@@ -108,7 +108,7 @@ public class ApplicationManager {
         return jamesHelper;
     }
 
-    public AdmHelper admHelper(){
+    public AdmHelper admhelp(){
         if(admHelper == null){
             admHelper = new AdmHelper(this);
         }

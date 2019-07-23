@@ -39,14 +39,14 @@ public class JamesHelper {
     public void creatUser(String name, String password){
         initTelnetSession();
         write("adduser " + name + " " + password);
-        String result = readUntil("User" + name + " added");
+        String result = readUntil("User " + name + " added");
         closeTelnetSession();
     }
 
     public void deleteUser(String name, String password){
         initTelnetSession();
         write("deluser" + name);
-        String result = readUntil("User" + name + " deleted");
+        String result = readUntil("User " + name + " deleted");
         closeTelnetSession();
     }
 
@@ -137,7 +137,7 @@ public class JamesHelper {
                 return allMail;
             }
             try{
-                Thread.sleep(1000);
+                Thread.sleep(6000);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
