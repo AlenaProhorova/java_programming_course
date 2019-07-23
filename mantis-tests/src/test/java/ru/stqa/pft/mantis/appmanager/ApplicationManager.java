@@ -1,5 +1,11 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,8 +15,12 @@ import org.openqa.selenium.remote.BrowserType;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import static com.sun.jmx.snmp.ThreadContext.contains;
 
 public class ApplicationManager {
     private final Properties properties;
@@ -18,6 +28,7 @@ public class ApplicationManager {
 
     private String browser;
     private RegistrationHelper registrationHelper;
+    private AdmHelper admHelper;
 
     private FtpHelper ftp;
     private MailHelper mailHelper;
@@ -95,5 +106,12 @@ public class ApplicationManager {
             jamesHelper = new JamesHelper(this);
         }
         return jamesHelper;
+    }
+
+    public AdmHelper admHelper(){
+        if(admHelper == null){
+            admHelper = new AdmHelper(this);
+        }
+        return admHelper;
     }
 }
