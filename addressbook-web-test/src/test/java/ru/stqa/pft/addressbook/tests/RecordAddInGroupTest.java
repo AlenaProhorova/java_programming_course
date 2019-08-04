@@ -40,27 +40,28 @@ public class RecordAddInGroupTest extends TestBase{
         Records before = app.db().records();
         Groups groups = app.db().groups();
         RecordData addedRecord = before.iterator().next();
-        int selectedId =addedRecord.getId();
         Groups groupFromRecord = addedRecord.getGroups();
+        GroupData addedGroup = groups.iterator().next();
 
         if ((groupFromRecord).equals(groups)){
-            GroupData deletedGroup = groups.iterator().next();
-            app.record().deleteRecordGroup(addedRecord,deletedGroup);
+            app.record().deleteRecordGroup(addedRecord,addedGroup);
             Records test = app.db().records();
-            addedRecord = test.iterator().next().withId(selectedId);
+            addedRecord = test.iterator().next().withId(addedRecord.getId());
             groupFromRecord =  addedRecord.getGroups();
         }
 
+
         if (groupFromRecord.size() < groups.size()){
             groups.removeAll(groupFromRecord);
+            addedGroup = groups.iterator().next();
             app.record().selectRecordById(addedRecord.getId());
-            app.record().addRecordGroup(groups.iterator().next());
+            app.record().addRecordGroup(addedGroup);
             app.goTo().homePage();
         }
 
         Records after = app.db().records();
         RecordData recordAfterAddedGroup = after.iterator().next().withId(addedRecord.getId());
-        assertThat(recordAfterAddedGroup.getGroups().size(), equalTo(addedRecord.getGroups().size()+1));
+        assertThat(recordAfterAddedGroup.getGroups().without(addedGroup), equalTo(addedRecord.getGroups()));
 
     }
 

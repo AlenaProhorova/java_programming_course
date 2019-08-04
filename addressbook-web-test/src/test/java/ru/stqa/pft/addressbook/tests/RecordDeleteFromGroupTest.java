@@ -55,14 +55,14 @@ public class RecordDeleteFromGroupTest extends TestBase{
             deleteRecord = test.iterator().next().withId(selectedId);
             groupFromRecord =  deleteRecord.getGroups();
         }
+        GroupData deleteGroup = groupFromRecord.iterator().next();
 
-        //groups.removeAll(groupFromRecord);
-        app.record().deleteRecordGroup(deleteRecord,groupFromRecord.iterator().next());
+        app.record().deleteRecordGroup(deleteRecord,deleteGroup);
         app.goTo().homePage();
 
         Records after = app.db().records();
         RecordData recordAfterDeleteGroup = after.iterator().next().withId(deleteRecord.getId());
-        assertThat(recordAfterDeleteGroup.getGroups().size(), equalTo(deleteRecord.getGroups().size()-1));
+        assertThat(recordAfterDeleteGroup.getGroups().withAdded(deleteGroup), equalTo(deleteRecord.getGroups()));
 
     }
 

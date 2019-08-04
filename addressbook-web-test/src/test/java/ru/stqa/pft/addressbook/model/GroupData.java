@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "group_list")
 
-public class GroupData {
+public class GroupData extends Groups {
 
     @XStreamOmitField
     @Id
