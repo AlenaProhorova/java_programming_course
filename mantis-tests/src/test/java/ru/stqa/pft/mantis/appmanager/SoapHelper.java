@@ -31,6 +31,8 @@ public Set<Project>  getProjects() throws RemoteException, MalformedURLException
             .collect(Collectors.toSet());
     }
 
+
+
     private MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
         return new MantisConnectLocator().getMantisConnectPort(new URL("http://localhost/mantisbt-2.21.1/api/soap/mantisconnect.php"));
     }
@@ -50,4 +52,16 @@ public Set<Project>  getProjects() throws RemoteException, MalformedURLException
                 .withSummary(createdIssueData.getSummary())
                 .withProject(new Project().withId(createdIssueData.getProject().getId().intValue()).withName(createdIssueData.getProject().getName()));
     }
+
+    public Set<Issue> getIssue(int issueId) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData issues = mc.mc_issue_get("administrator", "root",BigInteger.valueOf(issueId));
+        return Arrays.asList(issues).stream()
+                .map((p) -> new Issue().withId(p.getId().intValue())
+                        .withDescription(p.getDescription())
+                        .withSummary(p.getSummary())
+                        .withStatus(p.getStatus().getName()))
+                .collect(Collectors.toSet());
+    }
+
 }
