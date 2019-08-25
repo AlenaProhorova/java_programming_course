@@ -17,7 +17,7 @@ dependencies {
     compile group: 'org.hibernate', name:'hibernate-core', version:'5.1.0.Final'
 }
 
-task testGroups(type: Test){
+task testGroups(type: test){
     useTestNG{
         suites 'src/test/resources/testng-groups.xml'
     }
@@ -32,12 +32,12 @@ task testGroups(type: Test){
     }
 }
 
-task testRecords(type: Test){
+task testRecords(type: test){
     useTestNG{
         suites 'src/test/resources/testng-records.xml'
     }
     if(project.hasProperty('broser')){
-        systemProperty 'browser', "$browser"   
+        systemProperty 'browser', "$browser"
     }
     if(project.hasProperty('target')){
         systemProperty 'target', "$target"
