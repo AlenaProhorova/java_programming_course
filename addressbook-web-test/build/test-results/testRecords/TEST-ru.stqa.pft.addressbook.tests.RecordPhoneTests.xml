@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.stqa.pft.addressbook.tests.RecordPhoneTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-07-07T15:43:14" hostname="AP" time="1.262">
-  <properties/>
-  <testcase name="testRecordPhones" classname="ru.stqa.pft.addressbook.tests.RecordPhoneTests" time="1.262"/>
-  <system-out><![CDATA[19:43:14.418 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testRecordPhones with parameters[]
-19:43:15.682 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testRecordPhones
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

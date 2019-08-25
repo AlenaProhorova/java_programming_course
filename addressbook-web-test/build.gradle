@@ -17,7 +17,7 @@ dependencies {
     compile group: 'org.hibernate', name:'hibernate-core', version:'5.1.0.Final'
 }
 
-test{
+task testGroups(type: Test){
     useTestNG{
         suites 'src/test/resources/testng-groups.xml'
     }
@@ -32,7 +32,7 @@ test{
     }
 }
 
-test{
+task testRecords(type: Test){
     useTestNG{
         suites 'src/test/resources/testng-records.xml'
     }
@@ -45,6 +45,5 @@ test{
     if(project.hasProperty('verifyUI')){
         systemProperty 'verifyUI', "$verifyUI"
     }
-
 }
 
