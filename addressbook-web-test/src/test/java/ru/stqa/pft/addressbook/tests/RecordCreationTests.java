@@ -50,8 +50,7 @@ public class RecordCreationTests extends TestBase{
       line = reader.readLine();
     }
     Gson gson = new Gson();
-    List<RecordData> records = gson.fromJson(json, new TypeToken<List<RecordData>>() {
-    }.getType());
+    List<RecordData> records = gson.fromJson(json, new TypeToken<List<RecordData>>() {}.getType());
     return records.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
   }
   }

@@ -6,9 +6,6 @@
             <class name="ru.stqa.pft.addressbook.tests.RecordCreationTests" />
             <class name="ru.stqa.pft.addressbook.tests.RecordModificationTests" />
             <class name="ru.stqa.pft.addressbook.tests.RecordDeletionTests" />
-            <class name="ru.stqa.pft.addressbook.tests.RecordAddressTests" />
-            <class name="ru.stqa.pft.addressbook.tests.RecordEmailTests" />
-            <class name="ru.stqa.pft.addressbook.tests.RecordPhoneTests" />
         </classes>
     </test>
 </suite>
